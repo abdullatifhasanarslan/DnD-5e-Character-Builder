@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>POWER of Dragons</h1>
+<form method="POST" action="">
+	username <input type="text" name="username" /><br>
+	password <input type="password" name="password" /><br>
+	<input type="submit" value="login" name="button"> <input type="submit" value="register" name="button" >
+</form>
+{% if message=="login fail" %}
+<b> username or password incorrect </b>
+{% elif message=="register fail" %}
+<b> username is already taken </b>
+{% elif message=="no login" %}
+<b> you should login first </b>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	
+	<table>
+		{% for feat in feats %}
+		<tr>
+			<td>{{ feat[0] }} </td>
+			<td> {{ feat[1] }} </td>
+		</tr>
+		{% endfor %}
+	</table>
+	
+{% endblock %}

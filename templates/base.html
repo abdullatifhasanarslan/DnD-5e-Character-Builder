@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='stylesheet.css') }}">
+	<title>{% if "user" in session %} {{session["user"]}} {% else %} Power of Dragons {% endif %}</title>
+		
+</head>
+<body class="tc-body" style="height: 100vh; margin: 0px; padding-top: 24px;">
+	<div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists" style="width: 640px; display: block; margin: auto; margin-top: 0px; padding: 10px;">
+
+		{% if "user" in session %}
+		<table>
+			<tr>
+				<td><a href="/character" class="tc-tiddlylink-missing">Character</a></td>
+				<td><a href="/classes" class="tc-tiddlylink-missing">Classes</a></td>
+				<td><a href="/races" class="tc-tiddlylink-missing">Races</a></td>
+				<td><a href="/feats" class="tc-tiddlylink-missing">Feats</a></td>
+			</tr>
+		</table>
+			<a href="/logout" style="float:right" class="tc-tiddlylink-missing">Log Out</a> <br>
+			<h3>{{ session["user"] }} </h3>
+		{% endif %}
+
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html> 

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	{% for race in races %}
+	<table>
+		<tr>
+			<th> <a href="/change_race/{{race}}" class="tc-tiddlylink-missing"> {{race}} </a></th>
+		</tr>
+			
+		{% for feature in races[race] %}
+		
+			<tr>
+				<td> {{feature[0]}} </td>
+				<td> {{feature[1]}} </td>
+			</tr>
+		{% endfor %}
+	</table>
+	{% endfor %}
+	
+{% endblock %}

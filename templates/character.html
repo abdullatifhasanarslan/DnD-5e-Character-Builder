@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	
+	<table>
+		<tr>
+			<th>Race</th>
+		</tr>
+		{% for race in selections["Race"] %}
+		<tr>
+			{% if race[1]==None %}
+				<td> {{ race[0] }} </td>
+			{% else %}
+				<td> {{ race[1] }} </td>
+			{% endif %}
+			<td> {{ race[2] }} </td>
+		</tr>
+		{% endfor %}
+	</table>
+
+	
+	<table>
+		<tr>
+			<th>Class Levels</th>
+		</tr>
+		{% for class in selections["Class"] %}
+		<tr>
+			<td> {{ class[1] }} </td>
+			<td> {{ class[2] }} </td>
+		</tr>
+		{% endfor %}
+	</table>
+
+	
+	<table>
+		<tr>
+			<th>Feats</th>
+		</tr>
+		{% for feat in selections["Feat"] %}
+		<tr>
+			<td> {{ feat[1] }} </td>
+			<td> {{ feat[2] }} </td>
+		</tr>
+		{% endfor %}
+	</table>
+	
+	
+
+
+Little Timmy aproached the tavern keeper with a handful of gold coins hard earned in the streets a couple of nights back, when those two drunk adventurers fell to the ground right in front of him. They were too wasted to notice how a couple of old rusty coins slippered from their bag into the wet and cold stone of the city streets before they keep in their way, giving little Timmy its first hot meal since the last lunar cycle.
+
+Picking up the coins was not the hard part but rather keeping them hidden while a bunch of guards stormed through a nearby corner past the boy, weapons drawn and all, right after the drunk adventurers.
+
+{% endblock %}
