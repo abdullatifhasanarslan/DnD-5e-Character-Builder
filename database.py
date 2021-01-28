@@ -6,27 +6,48 @@ import yaml
 delete_database = "DROP DATABASE POWER"
 create_database = "CREATE DATABASE POWER"
 use_database = "USE POWER"
+
 create_login_table = "CREATE TABLE LOGIN(username varchar(40), password varchar(20), PRIMARY KEY (username))"
 create_deneme_user = "INSERT INTO LOGIN(username, password) VALUES " + data.deneme
+
 create_selections_table = "CREATE TABLE SELECTIONS(name varchar(40), type varchar(20), PRIMARY KEY (name))"
 populate_selections_table = "INSERT INTO SELECTIONS(name, type) VALUES " + data.selections
+
 create_features_table = "CREATE TABLE FEATURES(name varchar(40), explanation varchar(2000), PRIMARY KEY (name))"
 populate_features_table = "INSERT INTO FEATURES(name, explanation) VALUES " + data.features
-create_preqresuites_table = """	CREATE TABLE PREQRESUITES(selection varchar(40), feature varchar(40), 
+
+create_preqresuites_table = """	CREATE TABLE PREQRESUITES(selection varchar(40), feature varchar(40),  type varchar(20),
 								FOREIGN KEY (selection) REFERENCES SELECTIONS(name), 
 								FOREIGN KEY (feature) REFERENCES FEATURES(name))"""
-populate_preqresuites_table = "INSERT INTO PREQRESUITES(selection, feature) VALUES " + data.preqresuites
+populate_preqresuites_table = "INSERT INTO PREQRESUITES(selection, feature, type0) VALUES " + data.preqresuites
 
 create_character_selections_table = """	CREATE TABLE CHARACTERSELECTIONS(username varchar(40), selection varchar(40), 
 								FOREIGN KEY (username) REFERENCES LOGIN(username),
 								FOREIGN KEY (selection) REFERENCES SELECTIONS(name))"""
 populate_character_selections_table = "INSERT INTO CHARACTERSELECTIONS(username, selection) VALUES " + data.characterselection
 
+create_preqresuite_satisfaction_table = """	CREATE TABLE PREQRESUITESATISFACTION(username varchar(40), feature varchar(40), 
+								FOREIGN KEY (username) REFERENCES LOGIN(username),
+								FOREIGN KEY (feature) REFERENCES FEATURES(name))"""
+populate_preqresuite_satisfaction_table = "INSERT INTO PREQRESUITESATISFACTION(username, feature) VALUES " + data.preqresuitesatisfaction
+
+create_character_feature_table = """CREATE TABLE CHARACTERFEATURE(username varchar(40), feature varchar(40), 
+								FOREIGN KEY (username) REFERENCES LOGIN(username),
+								FOREIGN KEY (feature) REFERENCES FEATURES(name))"""
+populate_character_feature_table = "INSERT INTO CHARACTERFEATURE(username, feature) VALUES " + data.characterfeature
+
 create_class_subclass_table = """CREATE TABLE CLASSSUBCLASS(class varchar(20), subclass varchar(20), 
 								FOREIGN KEY (subclass) REFERENCES SELECTIONS(name),
 								PRIMARY KEY (class,subclass))"""
 populate_class_subclass_table = "INSERT INTO CLASSSUBCLASS(class, subclass) VALUES " + data.classsubclass	
 
+create_resources_table = "CREATE TABLE RESOURCES(name varchar(20), PRIMARY KEY (name)"
+populate_resources_table = "INSERT INTO RESOURCES(name) VALUES " + data.resources	
+
+create_character_feature_table = """CREATE TABLE RESOURCECONSUMPTION(resource varchar(40), feature varchar(40), 
+								FOREIGN KEY (resource) REFERENCES RESOURCES(name),
+								FOREIGN KEY (feature) REFERENCES FEATURES(name))"""
+populate_character_feature_table = "INSERT INTO RESOURCECONSUMPTION(resource, feature) VALUES " + data.resourceconsumption
 
 connection=None
 
@@ -76,6 +97,17 @@ def restart_database():
 		cursor.execute(create_character_selections_table)
 		cursor.execute(populate_character_selections_table)
 		
+		cursor.execute(create_preqresuite_satisfaction_table)
+		cursor.execute(populate_preqresuite_satisfaction_table)
+		
+		cursor.execute(create_character_feature_table)
+		cursor.execute(populate_character_feature_table)
+
+		cursor.execute(create_resources_table)
+		cursor.execute(populate_resources_table)
+
+		cursor.execute(create_resource_consumption_table)
+		cursor.execute(populate_resource_consumption_table)
 		
 		cursor.close()
 		connection.commit()

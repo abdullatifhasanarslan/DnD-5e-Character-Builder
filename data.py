@@ -1,5 +1,6 @@
 deneme = "('deneme','deneme')"
 
+#shows possible selections
 selections = """
 	("Tiefling", "Race"),
  	("Dragonborn", "Race"),
@@ -12,19 +13,27 @@ selections = """
 	("Human", "Race"),
 	("Githyanki", "Race"),
 
-	("Barbarian 1","Subclass"),
-	("Bard 1","Subclass"),
-	("Cleric 1","Subclass"),
-	("Druid 1","Subclass"),
-	("Fighter 1","Subclass"),
-	("Monk 1","Subclass"),
-	("Paladin 1","Subclass"),
-	("Ranger 1","Subclass"),
-	("Rogue 1","Subclass"),
-	("Rogue 2","Subclass"),
-	("Sorcerer 1","Subclass"),
-	("Warlock 1","Subclass"),
-	("Wizard 1","Subclass"),
+	("Barbarian 1","Level"),
+	("Bard 1","Level"),
+	("Cleric 1","Level"),
+	("Druid 1","Level"),
+	("Fighter 1","Level"),
+	("Monk 1","Level"),
+	("Paladin 1","Level"),
+	("Ranger 1","Level"),
+	("Rogue 1","Level"),
+	("Rogue 2","Level"),
+	("Rogue 3","Level"),
+	("Rogue 4","Level"),
+	("Rogue 5","Level"),
+	("Rogue 6","Level"),
+	("Rogue 7","Level"),
+	("Rogue 8","Level"),
+	("Revived","Subclass"),
+	("Assasin","Subclass"),
+	("Sorcerer 1","Level"),
+	("Warlock 1","Level"),
+	("Wizard 1","Level"),
 
 	("Animal Handler","Feat"),
 	("Alert","Feat"),
@@ -38,6 +47,7 @@ selections = """
 	
 """
 
+#shows class and subclass relations
 classsubclass="""
 	("Barbarian","Barbarian 1"),
 	("Bard","Bard 1"),
@@ -49,12 +59,34 @@ classsubclass="""
 	("Ranger","Ranger 1"),
 	("Rogue","Rogue 1"),
 	("Rogue","Rogue 2"),
+	("Rogue","Rogue 3"),
+	("Rogue","Rogue 4"),
+	("Rogue","Rogue 5"),
+	("Rogue","Rogue 6"),
+	("Rogue","Rogue 7"),
+	("Rogue","Rogue 8"),
+	("Rogue","Revived"),
+	("Rogue","Assasin"),
 	("Sorcerer","Sorcerer 1"),
 	("Warlock","Warlock 1"),
 	("Wizard","Wizard 1")
 """
 
+#shows feature names and explanatşon
 features = """
+	("Attack Action","The most Common action to take in combat is the Attack action, whether you are swinging a sword, firing an arrow from a bow, or brawling with your fists.
+With this action, you make one melee or ranged Attack. See the “Making an Attack” section for the rules that govern attacks.
+
+Certain features, such as the Extra Attack feature of the Fighter, allow you to make more than one Attack with this action."),
+
+	("Two-Weapon Fighting","When you take the Attack action and Attack with a light melee weapon that you’re holding in one hand, you can use a Bonus Action to Attack with a different light melee weapon that you’re holding in the other hand. You don’t add your ability modifier to the damage of the bonus Attack, unless that modifier is negative.
+
+If either weapon has the Thrown property, you can throw the weapon, instead of making a melee Attack with it."),
+
+	("Opportunity Attack","In a fight, everyone is constantly watching for a chance to strike an enemy who is fleeing or passing by. Such a strike is called an opportunity Attack.
+You can make an opportunity Attack when a Hostile creature that you can see moves out of your reach. To make the opportunity Attack, you use your Reaction to make one melee Attack against the provoking creature. The Attack occurs right before the creature leaves your reach.
+
+You can avoid provoking an opportunity Attack by taking the Disengage action. You also don’t provoke an opportunity Attack when you Teleport or when someone or something moves you without using your Movement, action, or Reaction. For example, you don’t provoke an opportunity Attack if an explosion hurls you out of a foe’s reach or if gravity causes you to fall past an enemy."),
 	("Animal Handler","Source: Unearthed Arcana 38 - Feats for Skills
 
 You master the techniques needed to train and handle animals. You gain the following benefits:
@@ -143,6 +175,19 @@ The amount of the extra damage increases as you gain levels in this class, as sh
 
 In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves' guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run."),
 	("Cunning Action","Bonus Action Dash, Disengage, Hide"),
+	("Tokens of Past Lives","Starting at 3rd level, you remember talents you had in your previous life. When you finish a long rest, you gain one skill or tool proficiency of your choice. You can replace this proficiency with another when you finish a long rest."),
+	("Revived Nature","When you choose this archetype at 3rd level, your newfound connection to death gives you the following benefits:
+
+    You have advantage on saving throws against disease and being poisoned, and you have resistance to poison damage.
+
+    You don't need to eat, drink, or breathe
+
+    You don't need to sleep. When you take a long rest, you must spend at least four hours in an inactive, motionless state, rather than sleeping. In this state, you remain semiconscious, and you can hear as normal."),
+
+	("Bolts from the Grave","Starting at 3rd level, you have learned to unleash bolts of necrotic energy from within your revived body. Immediately after you use your Cunning Action, you can make a ranged spell attack against a creature within 30 feet of you, provided you haven't used your Sneak Attack this turn. You are proficient with it, and you add your Dexterity modifier to its attack and damage rolls. A creature hit by this attack takes necrotic damage equal to your Sneak Attack. This uses your Sneak Attack for the turn."),
+
+	("Uncanny Dodge","Starting at 5th level, when an attacker that you can see hits you with an attack, you can use your reaction to halve the attack's damage against you."),
+	("Evasion","Beginning at 7th level, you can nimbly dodge out of the way of certain area effects, such as a red dragon's fiery breath or an Ice Storm spell. When you are subjected to an effect that allows you to make a Dexterity saving throw to take only half damage, you instead take no damage if you succeed on the saving throw, and only half damage if you fail."),
 
 	("Rage","Resistance to damage"),
 	("Bardic Inspiration","Vicious Mockery"),
@@ -175,57 +220,137 @@ In addition, you understand a set of secret signs and symbols used to convey sho
     
 
 """
-
+#shows preqresuites of the features
 preqresuites = """
 
-	("Animal Handler","Animal Handler"),
-	("Alert","Alert"),
-	("Athlete","Athlete"),
-	("Charger","Charger"),
-	("Crossbow Expert","Crossbow Expert"),
-	("Defensive Duelist","Defensive Duelist"),
-	("Dual Wielder","Dual Wielder"),
-	("Mobile","Mobile"),
-	("Shield Training","Shield Training"),
+	("Animal Handler","Animal Handler","Automatic"),
+	("Alert","Alert","Automatic"),
+	("Athlete","Athlete","Automatic"),
+	("Charger","Charger","Automatic"),
+	("Crossbow Expert","Crossbow Expert","Automatic"),
+	("Defensive Duelist","Defensive Duelist","Automatic"),
+	("Dual Wielder","Dual Wielder","Automatic"),
+	("Mobile","Mobile","Automatic"),
+	("Shield Training","Shield Training","Automatic"),
 
-	("Barbarian 1","Rage"),
-	("Bard 1","Bardic Inspiration"),
-	("Cleric 1","Divine Domain"),
-	("Druid 1","Druidic"),
-	("Fighter 1","Second Wind"),
-	("Monk 1","Martial Arts"),
-	("Paladin 1","Fighting Style"),
-	("Ranger 1","Fighting Style"),
-	("Rogue 1","Expertise"),
-	("Rogue 1","Sneak Attack"),
-	("Rogue 1","Thieves' Cant"),
-	("Rogue 2","Cunning Action"),
-	("Sorcerer 1","Sorcerous Origin"),
-	("Warlock 1","Otherworldly Patron"),
-	("Wizard 1","Spellbook"),
+	("Barbarian 1","Rage","Automatic"),
+	("Bard 1","Bardic Inspiration","Automatic"),
+	("Cleric 1","Divine Domain","Selection"),
+	("Druid 1","Druidic","Automatic"),
+	("Fighter 1","Second Wind","Automatic"),
+	("Monk 1","Martial Arts","Automatic"),
+	("Paladin 1","Fighting Style","Selection"),
+	("Ranger 1","Fighting Style","Selection"),
+	("Rogue 1","Expertise","Selection"),
+	("Rogue 1","Sneak Attack","Automatic"),
+	("Rogue 1","Thieves' Cant","Automatic"),
+	("Rogue 2","Cunning Action","Automatic"),	
+	("Rogue 3","Roguish Archtype","Selection"),	
+	("Revived","Tokens of Past Lives","Automatic"),
+	("Revived","Revived Nature","Automatic"),
+	("Revived","Bolts from the Grave","Automatic"),
+	("Rogue 5","Uncanny Dodge","Automatic"),
+	("Rogue 7","Evasion","Automatic"),
+
+	("Sorcerer 1","Sorcerous Origin","Selection"),
+	("Warlock 1","Otherworldly Patron","Selection"),
+	("Wizard 1","Spellbook","Automatic"),
 
 
-	("Githyanki","Githyanki"),
-	("Githyanki","Decadent Mastery"),
-	("Githyanki","Martial Prodigy"),
-	("Githyanki","Githyanki Psionics"),
-	("Dwarf","Dwarf"),
-	("Dragonborn","Dragonborn"),
-	("Elf","Elf"),
-	("Gnome","Gnome"),
-	("Half-Elf","Half-Elf"),
-	("Half-Orc","Half-Orc"),
-	("Halfling","Halfling"),
-	("Human","Human"),
-	("Tiefling","Tiefling")
+	("Githyanki","Githyanki","Automatic"),
+	("Githyanki","Decadent Mastery","Automatic"),
+	("Githyanki","Martial Prodigy","Automatic"),
+	("Githyanki","Githyanki Psionics","Automatic"),
+	("Dwarf","Dwarf","Automatic"),
+	("Dragonborn","Dragonborn","Automatic"),
+	("Elf","Elf","Automatic"),
+	("Gnome","Gnome","Automatic"),
+	("Half-Elf","Half-Elf","Automatic"),
+	("Half-Orc","Half-Orc","Automatic"),
+	("Halfling","Halfling","Automatic"),
+	("Human","Human","Automatic"),
+	("Tiefling","Tiefling","Automatic")
 	
 """
 
+#shows features that the character satisfies preqresuites
+#might need revision
+preqresuitesatisfaction = """
 
+	("Rizzrack","Githyanki"),
+	("Rizzrack","Decadent Mastery"),
+	("Rizzrack","Martial Prodigy"),
+	("Rizzrack","Githyanki Psionics"),
 
+	("Rizzrack","Mobile"),
+	("Rizzrack","Shield Training"),
+
+	("Rizzrack","Expertise"),
+	("Rizzrack","Sneak Attack"),
+	("Rizzrack","Thieves' Cant"),
+	("Rizzrack","Cunning Action"),
+	("Rizzrack","Tokens of Past Lives"),
+	("Rizzrack","Revived Nature"),
+	("Rizzrack","Bolts from the Grave"),
+	("Rizzrack","Uncanny Dodge"),
+	("Rizzrack","Evasion")
+"""
+
+#shows what features character have
+characterfeature = """
+	("Rizzrack","Githyanki"),
+	("Rizzrack","Decadent Mastery"),
+	("Rizzrack","Martial Prodigy"),
+	("Rizzrack","Githyanki Psionics"),
+
+	("Rizzrack","Mobile"),
+	("Rizzrack","Shield Training"),
+
+	("Rizzrack","Expertise"),
+	("Rizzrack","Sneak Attack"),
+	("Rizzrack","Thieves' Cant"),
+	("Rizzrack","Cunning Action"),
+	("Rizzrack","Tokens of Past Lives"),
+	("Rizzrack","Revived Nature"),
+	("Rizzrack","Bolts from the Grave"),
+	("Rizzrack","Uncanny Dodge"),
+	("Rizzrack","Evasion")
+"""
+
+#SHOWS what selections character made
 characterselection = """
-	("deneme","Mobile"),
-	("deneme","Shield Training"),
-	("deneme","Githyanki"),
-	("deneme","Rogue 1")
+	("Rizzrack","Mobile"),
+	("Rizzrack","Shield Training"),
+	("Rizzrack","Githyanki"),
+	("Rizzrack","Rogue 1"),
+	("Rizzrack","Rogue 2"),
+	("Rizzrack","Rogue 3"),
+	("Rizzrack","Rogue 4"),
+	("Rizzrack","Rogue 5"),
+	("Rizzrack","Rogue 6"),
+	("Rizzrack","Rogue 7"),
+	("Rizzrack","Rogue 8")
+"""
+
+#action bonus action vs vs
+resources = """
+	("Action"),
+	("Bonus Action"),
+	("Reaction"),
+	("Free Object Interaction"),
+	("Free Action"),
+	("Spell Slot"),
+	("Bardic Inspiration")
+"""
+
+#which feature uses which resource
+resourceconsumption = """
+	("Bonus Action","Cunning Action"),
+	("Action","Attack Action"),
+	("Bonus Action","Two-Weapon Fighting"),
+	("Reaction","Opportunity Attack"),
+	("Action","Githyanki Psionics"),
+	("Bonus Action","Githyanki Psionics"),
+	("Free Object Interaction","Shield Training")
+	("Reaction","Uncanny Dodge"),
 """
