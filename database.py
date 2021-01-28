@@ -22,7 +22,10 @@ create_character_selections_table = """	CREATE TABLE CHARACTERSELECTIONS(usernam
 								FOREIGN KEY (selection) REFERENCES SELECTIONS(name))"""
 populate_character_selections_table = "INSERT INTO CHARACTERSELECTIONS(username, selection) VALUES " + data.characterselection
 
-	
+create_class_subclass_table = """CREATE TABLE CLASSSUBCLASS(class varchar(20), subclass varchar(20), 
+								FOREIGN KEY (subclass) REFERENCES SELECTIONS(name),
+								PRIMARY KEY (class,subclass))"""
+populate_class_subclass_table = "INSERT INTO CLASSSUBCLASS(class, subclass) VALUES " + data.classsubclass	
 
 
 connection=None
@@ -60,6 +63,9 @@ def restart_database():
 
 		cursor.execute(create_selections_table)
 		cursor.execute(populate_selections_table)
+
+		cursor.execute(create_class_subclass_table)
+		cursor.execute(populate_class_subclass_table)
 
 		cursor.execute(create_features_table)
 		cursor.execute(populate_features_table)
@@ -123,21 +129,30 @@ def check_login(username,password):
 	return False
 
 
-def list_selections():
+def list_selections(username):
 	check = """	SELECT SELECTIONS.name, FEATURES.name, FEATURES.explanation, SELECTIONS.type FROM CHARACTERSELECTIONS
 				LEFT JOIN SELECTIONS ON CHARACTERSELECTIONS.selection=SELECTIONS.name
 				LEFT JOIN PREQRESUITES ON CHARACTERSELECTIONS.selection=PREQRESUITES.selection
 				LEFT JOIN FEATURES ON PREQRESUITES.feature=FEATURES.name
+				WHERE CHARACTERSELECTIONS.username=%s
 	"""
-
+	find_class = "SELECT CLASSSUBCLASS.class FROM CLASSSUBCLASS WHERE CLASSSUBCLASS.subclass=%s"
 	
 	try:
 		cursor = connection.cursor(buffered=True)
-		cursor.execute(check)	
+		cursor.execute(check,(username,))	
 		selections = cursor.fetchall()
-		seperated_selections={"Feat":[],"Class":[],"Race":[]}
+		seperated_selections={"Feat":[],"Class":{},"Race":[]}
 		for selection in selections:
-			seperated_selections[selection[3]].append(selection[:3])
+			if selection[3]=="Subclass":
+				cursor.execute(find_class,(selection[0],))	
+				class_ = cursor.fetchall()[0][0]
+				if class_ in seperated_selections["Class"]:
+					seperated_selections["Class"][class_].append(selection[:3])
+				else:
+					seperated_selections["Class"][class_]=[selection[:3]]
+			else:
+				seperated_selections[selection[3]].append(selection[:3])
 		cursor.close()
 		return seperated_selections
 	except Error as e:
@@ -163,17 +178,28 @@ def list_feats():
 	return []
 
 def list_classes():
-	check = "SELECT * FROM SELECTIONS WHERE type=%s"
+	check = """	SELECT SELECTIONS.name, FEATURES.name, FEATURES.explanation FROM SELECTIONS
+				LEFT JOIN PREQRESUITES ON SELECTIONS.name=PREQRESUITES.selection
+				LEFT JOIN FEATURES ON PREQRESUITES.feature=FEATURES.name
+				WHERE SELECTIONS.type="Subclass" 
+	"""
+	find_class = "SELECT CLASSSUBCLASS.class FROM CLASSSUBCLASS WHERE CLASSSUBCLASS.subclass=%s"
+	
 	try:
 		cursor = connection.cursor(buffered=True)
-		cursor.execute(check,("Class",))	
-		matches = cursor.fetchall()
+		cursor.execute(check)	
+		selections = cursor.fetchall()
+		seperated_selections={}
+		for selection in selections:
+			cursor.execute(find_class,(selection[0],))	
+			class_ = cursor.fetchall()[0][0]
+			if class_ not in seperated_selections:
+				seperated_selections[class_] = []
+			seperated_selections[class_].append(selection)
 		cursor.close()
-		return matches
+		return seperated_selections
 	except Error as e:
 		print(e)
-
-	return []
 
 def list_races():
 	check = """	SELECT SELECTIONS.name, FEATURES.name, FEATURES.explanation FROM PREQRESUITES
@@ -198,7 +224,63 @@ def list_races():
 
 	return []
 
+def check_if_user_has_race(username):
+	check = """	SELECT * FROM CHARACTERSELECTIONS 
+				LEFT JOIN SELECTIONS ON CHARACTERSELECTIONS.selection=SELECTIONS.name 
+				WHERE CHARACTERSELECTIONS.username=%s AND SELECTIONS.type="Race"
+			"""
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(check, (username,))
+		result = cursor.fetchall()
+		cursor.close()
+		if len(result) > 0:
+			return True
+		return False
+	except Error as e:
+		print(e)
+
+def create_selections(name, type):
+	add = "INSERT INTO SELECTIONS(name, type) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(name,type))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+def create_preqresuites(selection,feature):
+	add = "INSERT INTO PREQRESUITES(selection, feature) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(selection,feature))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+def create_features(name,explanation):
+	add = "INSERT INTO FEATURES(name, explanation) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(name,explanation))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+def create_classsubclass(class_,subclass):
+	add = "INSERT INTO CLASSSUBCLASS(class, subclass) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(class_,subclass))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+
+
 def change_race(username, race):
+	add = "INSERT INTO CHARACTERSELECTIONS(username, selection) VALUES(%s, %s)"
+			
 	update = """UPDATE CHARACTERSELECTIONS CHARACTERSELECTIONS 
 				LEFT JOIN SELECTIONS ON CHARACTERSELECTIONS.selection=SELECTIONS.name 
 				SET CHARACTERSELECTIONS.selection=%s
@@ -206,10 +288,60 @@ def change_race(username, race):
 			"""
 	try:
 		cursor = connection.cursor(buffered=True)
-		result = cursor.execute(update, (race,username))
+		if not check_if_user_has_race(username):
+			cursor.execute(add, (username,race))
+		else:
+			cursor.execute(update, (race,username))
 		cursor.close()
+		connection.commit()
 	except Error as e:
 		print(e)
+
+
+def add_class(username, class_):
+	add = "INSERT INTO CHARACTERSELECTIONS(username, selection) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(username,class_))	
+		cursor.close()
+		connection.commit()
+		return True
+	except Error as e:
+		print(e)
+	return False
+
+def add_feat(username, feat):
+	add = "INSERT INTO CHARACTERSELECTIONS(username, selection) VALUES(%s, %s)"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(add,(username,feat))	
+		cursor.close()
+		connection.commit()
+		return True
+	except Error as e:
+		print(e)
+	return False
+
+def remove_class(username, class_):
+	remove = "DELETE FROM CHARACTERSELECTIONS WHERE username=%s AND selection=%s"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(remove,(username,class_))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+
+def remove_feat(username, feat):
+	remove = "DELETE FROM CHARACTERSELECTIONS WHERE username=%s AND selection=%s"
+	try:
+		cursor = connection.cursor(buffered=True)
+		cursor.execute(remove,(username,feat))	
+		cursor.close()
+		connection.commit()
+	except Error as e:
+		print(e)
+
 
 def list_users():
 	try:

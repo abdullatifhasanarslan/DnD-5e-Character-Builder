@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	
+<h1>POWER of Dragons</h1>
+
+<h3>SELECTIONS</h3>
+<form method="POST" action="/create_selections">
+	SELECTION.name <input type="text" name="SELECTIONS.name" /><br>
+	SELECTION.type <input type="text" name="SELECTIONS.type" /><br>
+	<input type="submit" value="create" name="button" >
+</form>
+
+<h3>CLASSSUBCLASS</h3>
+<form method="POST" action="/create_classsubclass">
+	CLASSSUBCLASS.class <input type="text" name="CLASSSUBCLASS.class" /><br>
+	CLASSSUBCLASS.subclass <input type="text" name="CLASSSUBCLASS.subclass" /><br>
+	<input type="submit" value="create" name="button" >
+</form>
+
+<h3>PREQRESUITES</h3>
+<form method="POST" action="/create_preqresuites">
+	PREQRESUITES.selection <input type="text" name="PREQRESUITES.selection" /><br>
+	PREQRESUITES.feature <input type="text" name="PREQRESUITES.feature" /><br>
+	<input type="submit" value="create" name="button" >
+</form>
+
+<h3>FEATURES</h3>
+<form method="POST" action="/create_features">
+	FEATURES.name <input type="text" name="FEATURES.name" /><br>
+	FEATURES.explanation <input type="text" name="FEATURES.explanation" /><br>
+	<input type="submit" value="create" name="button" >
+</form>
+	
+{% endblock %}

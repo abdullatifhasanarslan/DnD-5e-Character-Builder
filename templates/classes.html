@@ -2,13 +2,21 @@
 
 {% block content %}
 	
-	
+		
+	<h3>Class Levels</h3>
+	{% for class in classes %}
 	<table>
-		{% for class in classes %}
 		<tr>
-			<td> {{ class[0] }} </td>
+			<th> {{class}} </th>
 		</tr>
+		{% for subclass in classes[class] %}
+			<tr>
+				<td><a href="/add_class/{{subclass[0]}}" class="tc-tiddlylink-missing"> {{subclass[0]}} </a></td>
+				<td> {{ subclass[1] }} </td>
+				<td> {{ subclass[2] }} </td>
+			</tr>
 		{% endfor %}
 	</table>
+	{% endfor %}
 
 {% endblock %}

@@ -31,6 +31,63 @@ def index():
 			return redirect("/character")
 		return render_template("index.html")
 
+
+@app.route("/create_selections", methods=["GET","POST"])
+def create_selections():
+	if request.method == "POST" and session["user"]=="deneme":
+		data = request.form
+		print(data["SELECTIONS.name"])
+		name = data["SELECTIONS.name"]
+		type = data["SELECTIONS.type"]
+
+		database.create_selections(name,type)
+
+		return redirect("/create")
+	else:
+		return redirect("/")
+
+@app.route("/create_preqresuites", methods=["GET","POST"])
+def create_preqresuites():
+	if request.method == "POST" and session["user"]=="deneme":
+		data = request.form
+		print(data)
+		selection = data["PREQRESUITES.selection"]
+		feature = data["PREQRESUITES.feature"]
+
+		database.create_preqresuites(selection,feature)
+		#redirect to main page
+		return redirect("/create")
+	else:
+		return redirect("/")
+
+@app.route("/create_features", methods=["GET","POST"])
+def create_features():
+	if request.method == "POST" and session["user"]=="deneme":
+		data = request.form
+		name = data["FEATURES.name"]
+		explanation = data["FEATURES.explanation"]
+
+		database.create_features(name,explanation)
+		#redirect to main page
+		return redirect("/create")
+	else:
+		return redirect("/")
+
+@app.route("/create_classsubclass", methods=["GET","POST"])
+def create_classsubclass():
+	if request.method == "POST" and session["user"]=="deneme":
+		data = request.form
+		class_ = data["CLASSSUBCLASS.class"]
+		subclass = data["CLASSSUBCLASS.subclass"]
+
+		database.create_classsubclass(class_,subclass)
+		#redirect to main page
+		return redirect("/create")
+	else:
+		return redirect("/")
+
+
+
 @app.route("/users")
 def users():
 	users = database.list_users()
@@ -70,13 +127,51 @@ def change_race(race):
 	else:
 		return redirect("/")
 
+@app.route("/add_class/<class_>", methods=['GET'])
+def add_class(class_):
+	if "user" in session:
+		database.add_feat(session["user"], class_)
+		return redirect("/classes")
+	else:
+		return redirect("/")
+
+@app.route("/add_feat/<feat>", methods=['GET'])
+def add_feat(feat):
+	if "user" in session:
+		database.add_feat(session["user"], feat)
+		return redirect("/feats")
+	else:
+		return redirect("/")
+
+@app.route("/remove_class/<class_>", methods=['GET'])
+def remove_class(class_):
+	if "user" in session:
+		database.remove_feat(session["user"], class_)
+		return redirect("/character")
+	else:
+		return redirect("/")
+
+@app.route("/remove_feat/<feat>", methods=['GET'])
+def remove_feat(feat):
+	if "user" in session:
+		database.remove_feat(session["user"], feat)
+		return redirect("/character")
+	else:
+		return redirect("/")
+
 @app.route("/character")
 def character_page():
 	if "user" in session:
-		return render_template("character.html", selections=database.list_selections())
+		return render_template("character.html", selections=database.list_selections(session["user"]))
 	else:
 		return redirect("/")
-	
+
+@app.route("/create", methods=["GET","POST"])
+def edit_page():
+	if "user" in session and session["user"] == "deneme":
+		return render_template("add.html")
+	return redirect("/")
+
 
 @app.route("/logout")
 def logout():

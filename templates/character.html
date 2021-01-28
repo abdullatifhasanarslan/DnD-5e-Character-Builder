@@ -25,10 +25,16 @@
 			<th>Class Levels</th>
 		</tr>
 		{% for class in selections["Class"] %}
-		<tr>
-			<td> {{ class[1] }} </td>
-			<td> {{ class[2] }} </td>
-		</tr>
+			<tr>
+				<th> {{class}} </th>
+			</tr>
+			{% for subclass in selections["Class"][class] %}
+				<tr>
+					<td><a href="/remove_class/{{subclass[0]}}" class="tc-tiddlylink-missing"> {{subclass[0]}} </a></td>
+					<td> {{ subclass[1] }} </td>
+					<td> {{ subclass[2] }} </td>
+				</tr>
+			{% endfor %}
 		{% endfor %}
 	</table>
 
@@ -39,7 +45,7 @@
 		</tr>
 		{% for feat in selections["Feat"] %}
 		<tr>
-			<td> {{ feat[1] }} </td>
+			<td><a href="/remove_feat/{{feat[1]}}" class="tc-tiddlylink-missing"> {{feat[1]}} </a></td>
 			<td> {{ feat[2] }} </td>
 		</tr>
 		{% endfor %}

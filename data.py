@@ -12,18 +12,19 @@ selections = """
 	("Human", "Race"),
 	("Githyanki", "Race"),
 
-	("Barbarian","Class"),
-	("Bard","Class"),
-	("Cleric","Class"),
-	("Druid","Class"),
-	("Fighter","Class"),
-	("Monk","Class"),
-	("Paladin","Class"),
-	("Ranger","Class"),
-	("Rogue 1","Class"),
-	("Sorcerer","Class"),
-	("Warlock","Class"),
-	("Wizard","Class"),
+	("Barbarian 1","Subclass"),
+	("Bard 1","Subclass"),
+	("Cleric 1","Subclass"),
+	("Druid 1","Subclass"),
+	("Fighter 1","Subclass"),
+	("Monk 1","Subclass"),
+	("Paladin 1","Subclass"),
+	("Ranger 1","Subclass"),
+	("Rogue 1","Subclass"),
+	("Rogue 2","Subclass"),
+	("Sorcerer 1","Subclass"),
+	("Warlock 1","Subclass"),
+	("Wizard 1","Subclass"),
 
 	("Animal Handler","Feat"),
 	("Alert","Feat"),
@@ -35,6 +36,22 @@ selections = """
 	("Shield Training","Feat"),
 	("Mobile","Feat")
 	
+"""
+
+classsubclass="""
+	("Barbarian","Barbarian 1"),
+	("Bard","Bard 1"),
+	("Cleric","Cleric 1"),
+	("Druid","Druid 1"),
+	("Fighter","Fighter 1"),
+	("Monk","Monk 1"),
+	("Paladin","Paladin 1"),
+	("Ranger","Ranger 1"),
+	("Rogue","Rogue 1"),
+	("Rogue","Rogue 2"),
+	("Sorcerer","Sorcerer 1"),
+	("Warlock","Warlock 1"),
+	("Wizard","Wizard 1")
 """
 
 features = """
@@ -125,6 +142,20 @@ The amount of the extra damage increases as you gain levels in this class, as sh
 	("Thieves' Cant","During your rogue training you learned thieves' cant, a secret mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation. Only another creature that knows thieves' cant understands such messages. It takes four times longer to convey such a message than it does to speak the same idea plainly,
 
 In addition, you understand a set of secret signs and symbols used to convey short, simple messages, such as whether an area is dangerous or the territory of a thieves' guild, whether loot is nearby, or whether the people in an area are easy marks or will provide a safe house for thieves on the run."),
+	("Cunning Action","Bonus Action Dash, Disengage, Hide"),
+
+	("Rage","Resistance to damage"),
+	("Bardic Inspiration","Vicious Mockery"),
+	("Divine Domain","May Allah help you"),
+	("Druidic","Tree Hugger"),
+	("Second Wind","More dayak"),
+	("Martial Arts","Kung-fu"),
+	("Fighting Style","Heyoo"),
+	("Sorcerous Origin","Wild Magic"),
+	("Otherworldly Patron","I sold my soul to devil"),
+	("Spellbook","The pursuit of knowledge"),
+
+
 	
 	("Dwarf","Kingdoms rich in ancient grandeur, halls carved into the roots of mountains, the echoing of picks and hammers in deep mines and blazing forges, a commitment to clan and tradition, and a burning hatred of goblins and orcs – these common threads unite all dwarves."),
 	("Dragonborn","Dragonborn feature"),
@@ -156,13 +187,28 @@ preqresuites = """
 	("Dual Wielder","Dual Wielder"),
 	("Mobile","Mobile"),
 	("Shield Training","Shield Training"),
+
+	("Barbarian 1","Rage"),
+	("Bard 1","Bardic Inspiration"),
+	("Cleric 1","Divine Domain"),
+	("Druid 1","Druidic"),
+	("Fighter 1","Second Wind"),
+	("Monk 1","Martial Arts"),
+	("Paladin 1","Fighting Style"),
+	("Ranger 1","Fighting Style"),
+	("Rogue 1","Expertise"),
+	("Rogue 1","Sneak Attack"),
+	("Rogue 1","Thieves' Cant"),
+	("Rogue 2","Cunning Action"),
+	("Sorcerer 1","Sorcerous Origin"),
+	("Warlock 1","Otherworldly Patron"),
+	("Wizard 1","Spellbook"),
+
+
 	("Githyanki","Githyanki"),
 	("Githyanki","Decadent Mastery"),
 	("Githyanki","Martial Prodigy"),
 	("Githyanki","Githyanki Psionics"),
-	("Rogue 1","Expertise"),
-	("Rogue 1","Sneak Attack"),
-	("Rogue 1","Thieves' Cant"),
 	("Dwarf","Dwarf"),
 	("Dragonborn","Dragonborn"),
 	("Elf","Elf"),

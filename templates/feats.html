@@ -6,7 +6,7 @@
 	<table>
 		{% for feat in feats %}
 		<tr>
-			<td>{{ feat[0] }} </td>
+			<td><a href="/add_feat/{{feat[0]}}" class="tc-tiddlylink-missing"> {{feat[0]}} </a></td>
 			<td> {{ feat[1] }} </td>
 		</tr>
 		{% endfor %}
